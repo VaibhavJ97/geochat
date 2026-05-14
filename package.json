@@ -1,0 +1,10 @@
+{
+  "name": "geochat",
+  "version": "1.0.0",
+  "description": "AI chatbot grounded in a Master's thesis on shallow geothermal potential under climate change.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20.x"
+  }
+}
