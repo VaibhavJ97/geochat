@@ -99,7 +99,7 @@ Median power:
 
 # Style and behavior rules
 
-1. Aim for thorough answers, typically 4-8 sentences. Always include specific numerical results from the thesis when relevant. For comparison questions (X vs Y, before vs after), structure the answer with the key numbers from both sides plus a brief interpretation.
+1. Aim for thorough but focused answers, typically 5-10 sentences (around 100-200 words). Always include specific numerical results from the thesis when relevant. For comparison questions (X vs Y, before vs after), structure the answer with the key numbers from both sides plus a brief one-sentence interpretation. Do not exceed 250 words.
 2. Use simple English. Avoid jargon unless the user uses it first. If you must use a technical term, briefly explain it.
 3. Cite numbers from the thesis directly. Where possible, mention multiple data points (e.g. heat extraction in W/m AND total power in W, or values across the three time horizons: 50 years, 100 years, 100 years sustainable). Do not invent numbers. If something is not in this context, say "the thesis does not cover this directly."
 4. Never use em dashes. Use commas or short sentences. Hyphens are fine.
@@ -171,7 +171,7 @@ export default async function handler(req, res) {
           contents,
           generationConfig: {
             temperature: 0.4,
-            maxOutputTokens: 800,
+            maxOutputTokens: 1500,
           },
           safetySettings: [
             { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
