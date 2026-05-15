@@ -1,138 +1,116 @@
-# GeoChat - AI assistant grounded in my Master's thesis
+# GeoChat - AI Assistant Grounded in My Master's Thesis
 
-> Ask any question about my Master's thesis (Climate change impact on shallow geothermal potential in Germany). Powered by Google Gemini with the thesis context built in.
+> Ask any question about my M.Sc. thesis on shallow geothermal potential in Germany. Built on Vercel serverless + Google Gemini.
 
-**Live site:** [vaibhavj97-geochat.vercel.app](https://vaibhavj97-geochat.vercel.app)
-**Embed mode:** [vaibhavj97-geochat.vercel.app/?embed=1](https://vaibhavj97-geochat.vercel.app/?embed=1) (no nav, no footer; used by the thesis page widget)
+**Live**: [vaibhavj97-geochat.vercel.app](https://vaibhavj97-geochat.vercel.app)
 
----
+## What this is
 
-## About this repo
+A chatbot that answers questions about my thesis using only the actual research data, not generic AI training. The entire thesis content (key findings, methodology, BHE parameters, limitations) is injected into Google Gemini as a system instruction on every request. The user never sees this context but every answer is grounded in it.
 
-GeoChat is a chatbot grounded in my Master's thesis at KIT, 2026. Rather than guessing or giving generic AI answers, it has the thesis content built in as context: methodology, climate scenarios, key findings, and what the numbers mean.
+## Architecture
 
-The chat itself runs on Google Gemini via a Vercel serverless function. The thesis context is injected into every prompt server-side, so users always get answers anchored to the real research.
-
-This repo is one of four in my portfolio:
-
-- [Portfolio homepage](https://vaibhavj97.vercel.app)
-- [Master Thesis Project](https://vaibhavj97-thesis.vercel.app)
-- **GeoChat** (this repo)
-- [BHE Recommender](https://vaibhavj97-bhe.vercel.app)
-
-## Features
-
-- Chat interface with suggested starter questions
-- Markdown-rendered responses
-- Sticky portfolio nav linking all four sites
-- Embed mode (`?embed=1` strips the nav and footer for iframe use)
-- "About / How it works / Tech stack" explainer sections after the chat
-- Loading indicator and graceful error handling
-- Conversation history sent with each request (multi-turn context)
+```
+Browser (vanilla JS chat UI)
+   |
+   v
+Vercel serverless function (api/chat.js, Node.js)
+   |
+   +-- Inject thesis context as system_instruction
+   +-- Send last 6 turns of history with new message
+   |
+   v
+Google Gemini API (gemini-flash-latest)
+   |
+   v
+Reply back to browser
+```
 
 ## Tech stack
 
-- **Frontend:** Vanilla HTML / CSS / JavaScript
-- **Backend:** [Vercel serverless function](https://vercel.com/docs/functions) (Node.js)
-- **AI model:** [Google Gemini](https://aistudio.google.com) (free tier, 1,500 requests / day)
-- **Hosting:** Vercel (free tier), auto-deployed from GitHub
-- **Total cost to run:** €0 / month
+| Layer | What |
+|---|---|
+| Frontend | Vanilla HTML, CSS, JavaScript (no framework, no build step) |
+| Backend | Vercel serverless function in Node.js (ES modules, async/await) |
+| AI model | Google Gemini (gemini-flash-latest, temperature 0.4, maxOutputTokens 1500) |
+| Hosting | Vercel free tier |
+| Cost | **0 EUR/month** at portfolio scale (within Gemini free tier of 1,500 requests/day) |
 
-## How it works
+## Features
 
-1. **You ask a question** - text input on the page sends a POST to `/api/chat` with the message and conversation history.
-2. **Thesis context is injected** - the serverless function constructs a Gemini prompt containing:
-   - A system message with the thesis context (methodology, results, scenarios)
-   - The prior conversation history
-   - Your new question
-3. **Gemini generates** - the model reads the context and writes an answer grounded in the actual research.
-4. **Answer comes back** - the response renders in the chat thread.
+- Suggested questions on first load
+- Conversation history (last 6 turns sent with each new message for follow-up context)
+- Markdown rendering in replies
+- Loading state and error handling
+- **Embed mode**: append `?embed=1` to the URL to hide nav and footer, used by the floating widget on the thesis page
+- Mobile-responsive
 
-The thesis context lives only on the server. The frontend never sees the API key or the system prompt; it only sees the user-facing reply.
+## How the context injection works
 
-## How to reproduce locally
+Rather than letting Gemini answer questions about geothermal energy from its generic training data, the entire thesis is summarized into a system prompt (~3 KB) that gets sent with every request. The prompt contains:
 
-You need a free Gemini API key.
+- Key findings with specific numbers (W/m, W, percentages, time horizons)
+- Methodology (CMIP6 models, SSP scenarios, MFLS approach, Brent's method)
+- BHE physical parameters (depth, conductivity, thermal resistance, etc.)
+- Spatial patterns (high-yield and low-yield regions)
+- Limitations of the study
+- Style and behavior rules ("never invent numbers, use thesis values only", "no em dashes", "no emojis")
+- About-GeoChat-itself section so the chatbot can describe its own architecture when asked
 
-### 1. Get a Gemini API key
+The user never sees this. They just ask a question and get an answer rooted in the thesis.
 
-Go to [aistudio.google.com](https://aistudio.google.com), sign in with Google, click "Get API key", and copy the key.
+## Why prompt injection instead of RAG or fine-tuning
 
-### 2. Install Vercel CLI
+The thesis context is small enough (~3 KB) to fit comfortably in Gemini's context window with room left for the conversation. Retrieval-augmented generation (RAG) would add embedding storage, vector search, and chunk-retrieval logic for no real benefit at this scale. Fine-tuning would lock in the model and prevent quick prompt iteration. Plain context injection is the right tool for this size of corpus.
 
-```bash
-npm install -g vercel
-```
-
-### 3. Clone and set up
+## Run locally
 
 ```bash
 git clone https://github.com/VaibhavJ97/geochat.git
 cd geochat
-npm install
+npm install -g vercel
+vercel dev
+# Open http://localhost:3000
 ```
 
-### 4. Add your API key
-
-Create `.env.local` in the project root:
-
+You'll need a Gemini API key in `.env.local`:
 ```
 GEMINI_API_KEY=your_key_here
 ```
 
-### 5. Run
+Get a free Gemini API key from [ai.google.dev](https://ai.google.dev).
 
-```bash
-vercel dev
-```
+## Deploy your own
 
-Then open [http://localhost:3000](http://localhost:3000).
+1. Fork this repo
+2. Connect it to a new Vercel project
+3. Add `GEMINI_API_KEY` as an environment variable in Vercel project settings
+4. Push to `main`. Vercel auto-deploys.
 
 ## Project structure
 
 ```
-geochat/
-├── index.html          Chat UI, sticky nav, explainer sections, footer
+.
+├── index.html              # Chat UI
+├── assets/
+│   ├── style.css           # Styles
+│   └── chat.js             # Frontend chat logic
 ├── api/
-│   └── chat.js         Vercel serverless function (Gemini call + context)
-├── package.json
-├── vercel.json
-├── .gitignore
+│   └── chat.js             # Vercel serverless function (Gemini wrapper)
 └── README.md
 ```
 
-## Deploy
+## Limitations
 
-1. Push to GitHub
-2. Import the repo on [vercel.com/new](https://vercel.com/new)
-3. Add `GEMINI_API_KEY` as an environment variable in the Vercel project settings
-4. Every push to `main` auto-deploys
-
-## Rate limiting and cost protection
-
-For production use, consider adding:
-
-- Per-IP rate limiting in the serverless function
-- A daily request cap with graceful degradation
-- [Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/) (free CAPTCHA) on the public chat
-- Hard spending caps in the Gemini dashboard
-
-This deployment uses Gemini's free tier (1,500 req/day) without additional rate limiting, which is sufficient for portfolio traffic.
-
-## AI coding assistance disclosure
-
-The chat interface, prompt-engineering scaffolding, serverless function, embed mode, and the explainer sections were developed with [Claude](https://claude.ai) (Anthropic) as a coding partner. The thesis context that gets injected into every prompt was author-written based on my own research. Google Gemini powers the live chat responses.
-
-## Author
-
-**Vaibhav Jaiswal**
-M.Sc. Applied Geosciences, Karlsruhe Institute of Technology, 2026
-
-- Email: vaibhavjaiswal1234@gmail.com
-- LinkedIn: [linkedin.com/in/vaibhavgeo](https://www.linkedin.com/in/vaibhavgeo/)
-- GitHub: [@VaibhavJ97](https://github.com/VaibhavJ97)
-- Portfolio: [vaibhavj97.vercel.app](https://vaibhavj97.vercel.app)
+- Free-tier rate limits apply: Gemini allows 1,500 requests/day, Vercel allows 100 GB bandwidth/month
+- Context window is the thesis only; the chatbot doesn't know anything outside the thesis
+- No fine-tuning, no RAG, no embeddings, just system-prompt context injection
+- No conversation persistence between sessions (deliberate, for privacy and simplicity)
 
 ## License
 
-Code released under the MIT License. Thesis content (in the system prompt) remains under standard KIT academic terms; please credit if you reuse this pattern for your own research portfolio.
+MIT
+
+## About me
+
+[Portfolio](https://vaibhavj97.vercel.app) · [Thesis project](https://vaibhavj97-thesis.vercel.app) · [GitHub profile](https://github.com/VaibhavJ97) · [LinkedIn](https://www.linkedin.com/in/vaibhavgeo/)
