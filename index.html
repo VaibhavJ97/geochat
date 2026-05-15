@@ -153,6 +153,25 @@
     font-style: italic;
   }
 
+  .intro .tech-tag {
+    display: block;
+    margin: -0.25rem 0 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .intro .tech-tag a {
+    color: var(--accent);
+    border-bottom: 1px dotted var(--accent);
+    text-decoration: none;
+  }
+  .intro .tech-tag a:hover {
+    color: var(--accent-deep);
+    border-bottom-color: var(--accent-deep);
+  }
+
   .suggestions {
     display: flex;
     flex-wrap: wrap;
@@ -515,10 +534,11 @@
 <main>
   <div id="messages">
     <div class="intro">
-      <h2>Ask my <em>Master's thesis</em></h2>
+      <h2>An AI assistant grounded in my <em>Master's thesis</em></h2>
+      <div class="tech-tag">→ Powered by Google Gemini · Vercel serverless · Vanilla JS · <a href="https://github.com/VaibhavJ97/geochat" target="_blank">source on GitHub</a></div>
       <p>
-        A chatbot grounded in my Master's thesis at KIT: <em>Climate change impact on shallow geothermal potential in Germany using a single borehole heat exchanger.</em>
-        Ask about methodology, results, models, scenarios, or what the numbers mean.
+        Built on my Master's thesis at KIT: <em>Climate change impact on shallow geothermal potential in Germany using a single borehole heat exchanger.</em>
+        Ask about methodology, results, models, scenarios, what the numbers mean - or how this chatbot itself was built.
       </p>
       <div class="suggestions">
         <button class="suggestion" type="button">What is the main finding of the thesis?</button>
@@ -526,6 +546,7 @@
         <button class="suggestion" type="button">What scenarios were modeled?</button>
         <button class="suggestion" type="button">Explain the FLS method in simple words</button>
         <button class="suggestion" type="button">Compare SSP 2-4.5 vs SSP 5-8.5</button>
+        <button class="suggestion" type="button">How was this chatbot built?</button>
       </div>
     </div>
   </div>
