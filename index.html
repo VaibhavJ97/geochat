@@ -8,7 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -283,17 +283,73 @@
   form#composer button:active { transform: scale(0.98); }
   form#composer button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
+  /* ============ FOOTER (3-column unified style) ============ */
   footer {
-    text-align: center;
-    padding: 0.9rem;
-    font-size: 0.78rem;
-    color: var(--muted);
-    border-top: 1px solid var(--border);
-    background: var(--panel);
+    background: var(--ink);
+    color: var(--bg);
+    padding: 60px 40px 24px;
+    margin-top: 60px;
+    border-top: none;
   }
-
-  footer a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--muted); }
-  footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .footer-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    text-align: left;
+  }
+  .footer-inner h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+    font-weight: 500;
+  }
+  .footer-inner p {
+    color: rgba(255, 250, 243, 0.7);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 460px;
+  }
+  .footer-inner ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .footer-inner ul li { margin-bottom: 8px; }
+  .footer-inner ul a {
+    color: rgba(255, 250, 243, 0.75);
+    font-size: 0.92rem;
+    text-decoration: none;
+    border-bottom: none;
+    transition: color 0.15s;
+  }
+  .footer-inner ul a:hover {
+    color: var(--accent);
+    border-bottom: none;
+  }
+  .footer-bottom {
+    max-width: 1400px;
+    margin: 40px auto 0;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 250, 243, 0.1);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: rgba(255, 250, 243, 0.5);
+    text-transform: uppercase;
+  }
+  @media (max-width: 720px) {
+    footer { padding: 40px 20px 20px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; gap: 8px; }
+  }
 
   /* ============ EMBED MODE (when ?embed=1 in URL) ============ */
   body.embed .topbar { display: none; }
@@ -356,7 +412,33 @@
 </main>
 
 <footer>
-  Built by <a href="https://vaibhavj97.vercel.app">Vaibhav Jaiswal</a>. Powered by Google Gemini.
+  <div class="footer-inner">
+    <div>
+      <h4>Let's connect</h4>
+      <p>Feedback on GeoChat, or interested in AI assistants grounded in domain-specific research? Happy to discuss retrieval, prompting, or building specialized chat interfaces.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="https://vaibhavj97.vercel.app">Home</a></li>
+        <li><a href="https://vaibhavj97-thesis.vercel.app">Master Thesis Project</a></li>
+        <li><a href="https://vaibhavj97-geochat.vercel.app">GeoChat</a></li>
+        <li><a href="https://vaibhavj97-bhe.vercel.app">BHE Recommender</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:vaibhavjaiswal1234@gmail.com">vaibhavjaiswal1234@gmail.com</a></li>
+        <li><a href="https://github.com/VaibhavJ97" target="_blank">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/vaibhavgeo/" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Vaibhav Jaiswal</span>
+    <span>Built with care · Powered by Gemini</span>
+  </div>
 </footer>
 
 <script>
