@@ -283,6 +283,131 @@
   form#composer button:active { transform: scale(0.98); }
   form#composer button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
+  /* ============ EXPLAINER SECTIONS (About / How it works / Tech) ============ */
+  .explainer-wrap {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .explainer-section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 70px 40px;
+  }
+  .explainer-section + .explainer-section {
+    border-top: 1px solid var(--border);
+  }
+  .explainer-section .sec-header {
+    max-width: 720px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+  .explainer-section .sec-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .explainer-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400;
+    margin: 0 0 14px;
+    line-height: 1.15;
+  }
+  .explainer-section h2 em {
+    font-style: italic;
+    color: var(--accent-deep);
+    font-weight: 300;
+  }
+  .explainer-section .lead {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+    margin-top: 12px;
+  }
+  .how-step {
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+  }
+  .how-step .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+  .how-step h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .how-step p {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  @media (max-width: 900px) {
+    .how-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .how-grid { grid-template-columns: 1fr; }
+  }
+
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 12px;
+  }
+  .tech-block {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 22px 22px;
+  }
+  .tech-block .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .tech-block p {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+  @media (max-width: 900px) {
+    .tech-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .tech-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Hide explainer in embed mode (when widget loads in thesis page) */
+  body.embed .explainer-wrap { display: none; }
+  @media (max-width: 720px) {
+    .explainer-section { padding: 50px 20px; }
+  }
+
   /* ============ FOOTER (3-column unified style) ============ */
   footer {
     background: var(--ink);
@@ -410,6 +535,75 @@
     <button type="submit" id="send">Ask</button>
   </form>
 </main>
+
+<!-- ============ EXPLAINER SECTIONS ============ -->
+<div class="explainer-wrap">
+
+  <section class="explainer-section">
+    <div class="sec-header">
+      <div class="sec-eyebrow">§ About this project</div>
+      <h2>What is <em>GeoChat</em>?</h2>
+      <p class="lead">GeoChat is an AI assistant grounded in my Master's thesis at KIT - <em>Impact of climate change on the geothermal potential of closed systems using GIS and Python.</em> Rather than guessing or giving generic answers, it has the thesis context built in and responds with what the research actually says: methodology, scenarios, results, and what the numbers mean.</p>
+    </div>
+  </section>
+
+  <section class="explainer-section">
+    <div class="sec-header">
+      <div class="sec-eyebrow">§ How it works</div>
+      <h2>From your question to a <em>grounded answer</em>.</h2>
+      <p class="lead">A four-step pipeline that keeps responses anchored to the thesis, not Wikipedia.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="step-num">→ 01 / INPUT</div>
+        <h4>You ask a question</h4>
+        <p>Type any question about the thesis. Pre-filled suggestions help you get started.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">→ 02 / CONTEXT</div>
+        <h4>Thesis context injected</h4>
+        <p>A Vercel serverless function attaches the thesis content (methodology, findings, scenarios) to the prompt.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">→ 03 / AI</div>
+        <h4>Gemini generates</h4>
+        <p>Google Gemini reads the context and writes an answer grounded in the real research.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">→ 04 / OUTPUT</div>
+        <h4>Answer in your browser</h4>
+        <p>The response comes back and renders in the chat thread for you to read.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="explainer-section">
+    <div class="sec-header">
+      <div class="sec-eyebrow">§ Tech stack</div>
+      <h2>Built on <em>free, modern</em> tools.</h2>
+      <p class="lead">Vanilla web stack plus serverless AI. Zero cost to run, easy to maintain.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-block">
+        <span class="label">Frontend</span>
+        <p>Vanilla HTML / CSS / JavaScript. No framework, no build step. Sticky portfolio nav included.</p>
+      </div>
+      <div class="tech-block">
+        <span class="label">Backend</span>
+        <p>Vercel serverless functions (Node.js) handle the API endpoint and prompt construction.</p>
+      </div>
+      <div class="tech-block">
+        <span class="label">AI</span>
+        <p>Google Gemini with thesis context injection, free tier (1,500 requests / day).</p>
+      </div>
+      <div class="tech-block">
+        <span class="label">Hosting</span>
+        <p>Vercel free tier with GitHub auto-deploy. Total infrastructure cost: <strong>€0 / month</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
 
 <footer>
   <div class="footer-inner">
