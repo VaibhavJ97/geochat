@@ -8,6 +8,16 @@
 
 A chatbot that answers questions about my thesis using only the actual research data, not generic AI training. The entire thesis content (key findings, methodology, BHE parameters, limitations) is injected into Google Gemini as a system instruction on every request. The user never sees this context but every answer is grounded in it.
 
+## How this was built - AI-pair-programming disclosure
+
+This project was built with **AI-assisted development workflows**. Anthropic Claude was my primary pair-programmer for the Vercel serverless function, the prompt engineering, the context injection strategy, the chat UI, and the embed mode. GitHub Copilot handled inline suggestions. ChatGPT helped iterate on the system prompt content (deciding what goes into the thesis context).
+
+**What was mine**: the architecture choice (prompt injection over RAG), the system prompt content rules (no em dashes, never invent numbers, thesis values only), the conversation history strategy (last 6 turns), the model parameters (temperature 0.4, maxOutputTokens 1500), and every line review before deployment.
+
+**What AI accelerated**: the Node.js function structure, async/await patterns, error handling, the markdown rendering in the frontend, and refactoring loops.
+
+There is a meta layer here worth noting: an AI-assisted developer built an AI assistant, using AI as a pair-programmer. The Anthropic "Claude and Claude Code" certification on my portfolio is part of why I'm confident in this workflow.
+
 ## Architecture
 
 ```
@@ -34,6 +44,7 @@ Reply back to browser
 | Backend | Vercel serverless function in Node.js (ES modules, async/await) |
 | AI model | Google Gemini (gemini-flash-latest, temperature 0.4, maxOutputTokens 1500) |
 | Hosting | Vercel free tier |
+| Development | AI-pair-programming (Claude, ChatGPT, Copilot) with full manual review |
 | Cost | **0 EUR/month** at portfolio scale (within Gemini free tier of 1,500 requests/day) |
 
 ## Features
