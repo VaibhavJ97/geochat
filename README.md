@@ -111,17 +111,48 @@ Get a free Gemini API key from [ai.google.dev](https://ai.google.dev).
 └── README.md
 ```
 
+## Citations and references
+
+GeoChat is grounded in my M.Sc. thesis. If you reference what GeoChat says, cite the thesis:
+
+```
+Jaiswal, V. (2026). Impact of Climate Change on the Geothermal Potential of
+Closed Systems Using GIS and Python. M.Sc. Thesis, Karlsruhe Institute of
+Technology, Germany. Supervisors: PD Dr. Kathrin Menberg, Dr. Susanne Benz.
+```
+
+For the methods that underlie the thesis numbers:
+- Rivera, J. A., Blum, P., & Bayer, P. (2017). *Increased ground temperatures in urban areas: Estimation of the technical geothermal potential.* Renewable Energy, 103, 388-400.
+- SIA 384/6 standard for ground-source heat exchanger systems.
+- CMIP6 (Coupled Model Intercomparison Project Phase 6) climate scenarios accessed via Google Earth Engine.
+
 ## Limitations
 
 - Free-tier rate limits apply: Gemini allows 1,500 requests/day, Vercel allows 100 GB bandwidth/month
 - Context window is the thesis only; the chatbot doesn't know anything outside the thesis
 - No fine-tuning, no RAG, no embeddings, just system-prompt context injection
 - No conversation persistence between sessions (deliberate, for privacy and simplicity)
+- AI responses can occasionally rephrase content imperfectly; the system prompt instructs Gemini to use thesis values only, but verify before citing
+
+## Disclaimer
+
+GeoChat is a personal project, not a peer-reviewed source. The system is designed to respond from the thesis content, but AI-generated text can still contain errors, paraphrasing artifacts, or unintended omissions. For academic citation, refer directly to the thesis PDF and the underlying references listed above. For engineering decisions (borehole design, installation, permitting), consult licensed professionals - GeoChat is not engineering advice.
 
 ## License
 
 MIT
 
-## About me
+## About me / Contact
 
-[Portfolio](https://vaibhavj97.vercel.app) · [Thesis project](https://vaibhavj97-thesis.vercel.app) · [GitHub profile](https://github.com/VaibhavJ97) · [LinkedIn](https://www.linkedin.com/in/vaibhavgeo/)
+- **Email**: vaibhavjaiswal1234@gmail.com
+- **Portfolio**: [vaibhavj97.vercel.app](https://vaibhavj97.vercel.app)
+- **LinkedIn**: [linkedin.com/in/vaibhavgeo](https://www.linkedin.com/in/vaibhavgeo/)
+- **GitHub**: [github.com/VaibhavJ97](https://github.com/VaibhavJ97)
+- **Book a 30-min call**: [calendly.com/vaibhavjaiswal1234/30min](https://calendly.com/vaibhavjaiswal1234/30min)
+- **Location**: Karlsruhe, Germany
+
+### My other repos
+
+- [Portfolio homepage](https://github.com/VaibhavJ97/VaibhavJ97.github.io) - the front door
+- [Master Thesis Project](https://github.com/VaibhavJ97/kit-master-thesis-portfolio) - the thesis this chatbot is built on
+- [BHE Recommender](https://github.com/VaibhavJ97/bhe-recommender) - companion tool that uses the same thesis data
