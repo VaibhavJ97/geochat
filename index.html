@@ -130,16 +130,59 @@ body.embed header.topbar, body.embed footer, body.embed .explainer-wrap { displa
 body.embed .intro .tech-tag, body.embed .intro > p { display: none; }
 body.embed main.chat-main { padding: 16px; }
 
+/* ============ RESPONSIVE: tablet (≤1024px) ============ */
 @media (max-width: 1024px) {
   .how-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-inner { grid-template-columns: 1fr; gap: 32px; }
 }
-@media (max-width: 640px) {
-  :root { --gutter: 20px; }
+
+/* ============ RESPONSIVE: large mobile (≤768px) ============ */
+@media (max-width: 768px) {
+  :root { --gutter: 22px; }
+  main.chat-main { padding: 28px 22px; }
+  .intro { padding: 18px 0 12px; }
+  .intro h2 { font-size: clamp(24px, 5.5vw, 32px); margin-bottom: 14px; }
+  .intro .tech-tag { font-size: 11px; padding: 5px 11px; margin-bottom: 14px; }
+  .intro p { font-size: 14px; margin-bottom: 16px; }
+  .suggestions { gap: 8px; margin-top: 16px; }
+  .suggestion { font-size: 12px; padding: 8px 14px; }
+  .bubble { padding: 12px 14px; font-size: 14px; }
+  #composer { padding: 12px 14px; }
+  #input { font-size: 14px; }
+  #send { padding: 9px 18px; font-size: 13px; }
+  .explainer-section { padding: 32px 0; }
+  .sec-header h2 { font-size: clamp(24px, 6vw, 34px); }
+  .sec-header { margin-bottom: 24px; }
+  .how-grid { grid-template-columns: 1fr; gap: 14px; }
+  .how-step { padding: 22px 20px; }
+  .tech-grid { grid-template-columns: 1fr; gap: 12px; }
+  .tech-block { padding: 20px; }
+}
+
+/* ============ RESPONSIVE: small mobile (≤520px) ============ */
+@media (max-width: 520px) {
+  :root { --gutter: 18px; }
   nav ul { display: none; }
   .nav-github span { display: none; }
-  .how-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; }
+  .nav-github { padding: 7px 10px; }
+  main.chat-main { padding: 20px 18px; }
+  .intro h2 { font-size: 24px; }
+  .intro p { font-size: 13.5px; }
+  .suggestions { gap: 6px; }
+  .suggestion { font-size: 11.5px; padding: 7px 12px; }
+  .msg.user .bubble, .msg.bot .bubble { max-width: 92%; }
+  .bubble { padding: 11px 13px; font-size: 13.5px; }
+  #composer { padding: 10px 12px; bottom: 10px; }
+  #input { font-size: 14px; padding: 6px 2px; }
+  #send { padding: 8px 14px; font-size: 12.5px; }
+  .explainer-wrap { padding: 44px 0; }
+  .explainer-section { padding: 28px 0; }
+  .sec-eyebrow { font-size: 11px; margin-bottom: 14px; }
+  .how-step h4 { font-size: 18px; }
+  .how-step p { font-size: 13px; }
+  .tech-block { padding: 18px; }
+  .tech-block p { font-size: 13px; }
+  .footer-bottom { flex-direction: column; gap: 12px; align-items: flex-start; padding-top: 20px; }
 }
 </style>
 </head>
