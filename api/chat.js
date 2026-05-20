@@ -160,7 +160,7 @@ export default async function handler(req, res) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       console.error('GEMINI_API_KEY not set');
-      return res.status(500).json({ error: 'Server not configured' });
+      return res.status(500).json({ error: 'Server not configured. The site owner has been notified.' });
     }
 
     // Build conversation history for Gemini
@@ -207,18 +207,45 @@ export default async function handler(req, res) {
     if (!geminiResponse.ok) {
       const errorText = await geminiResponse.text();
       console.error('Gemini API error:', geminiResponse.status, errorText);
-      return res.status(502).json({ error: 'AI service error' });
+
+      // Parse the Gemini error to give the user a clearer message
+      let userMessage = 'GeoChat is temporarily unavailable. Please try again in a minute.';
+      let code = geminiResponse.status;
+      try {
+        const errorJson = JSON.parse(errorText);
+        code = errorJson?.error?.code || code;
+      } catch (e) {
+        // Could not parse JSON, fall back to HTTP status
+      }
+
+      if (code === 503) {
+        userMessage = 'Google\'s AI service is overloaded right now. This usually clears up within a few minutes. Please try again shortly.';
+      } else if (code === 429) {
+        userMessage = 'The daily request limit has been reached. Please try again tomorrow, or contact Vaibhav directly via the portfolio.';
+      } else if (code === 401 || code === 403) {
+        userMessage = 'GeoChat cannot reach the AI service due to an authentication issue. The site owner has been notified.';
+      } else if (code === 400) {
+        userMessage = 'Your message could not be processed. Please try rephrasing it.';
+      } else if (code >= 500) {
+        userMessage = 'Google\'s AI service is having trouble right now. Please try again in a minute.';
+      }
+
+      return res.status(502).json({ error: userMessage });
     }
 
     const data = await geminiResponse.json();
 
     const reply =
       data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      'Sorry, I could not generate a response. Please try again.';
+      'Sorry, I could not generate a response. Please try rephrasing your question.';
 
     return res.status(200).json({ reply });
   } catch (err) {
     console.error('Handler error:', err);
-    return res.status(500).json({ error: 'Internal server error' });
+    // Network errors, JSON parse errors, etc.
+    const userMessage = err?.name === 'AbortError'
+      ? 'The request took too long. Please try again with a shorter question.'
+      : 'Connection problem reaching the AI service. Please check your internet and try again.';
+    return res.status(500).json({ error: userMessage });
   }
 }
