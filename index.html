@@ -100,7 +100,7 @@ main.chat-main { flex: 1; max-width: 900px; width: 100%; margin: 0 auto; padding
 
 /* ============ EXPLAINER SECTIONS (homepage section style) ============ */
 .explainer-wrap { background: var(--bg-alt); border-top: 1px solid var(--line); padding: 60px 0; }
-.explainer-section { padding: 40px 0; max-width: var(--max); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+.explainer-section { padding: 40px var(--gutter); max-width: var(--max); margin: 0 auto; }
 .explainer-section + .explainer-section { border-top: 1px solid var(--line); }
 .sec-header { margin-bottom: 36px; }
 .sec-eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: var(--accent); margin-bottom: 16px; }
@@ -165,7 +165,7 @@ body.embed main.chat-main { padding: 16px; }
   #composer { padding: 12px 14px; }
   #input { font-size: 14px; }
   #send { padding: 9px 18px; font-size: 13px; }
-  .explainer-section { padding: 32px 0; }
+  .explainer-section { padding: 32px var(--gutter); }
   .sec-header h2 { font-size: clamp(24px, 6vw, 34px); }
   .sec-header { margin-bottom: 24px; }
   .how-grid { grid-template-columns: 1fr; gap: 14px; }
@@ -190,7 +190,7 @@ body.embed main.chat-main { padding: 16px; }
   #input { font-size: 14px; padding: 6px 2px; }
   #send { padding: 8px 14px; font-size: 12.5px; }
   .explainer-wrap { padding: 44px 0; }
-  .explainer-section { padding: 28px 0; }
+  .explainer-section { padding: 28px var(--gutter); }
   .sec-eyebrow { font-size: 11px; margin-bottom: 14px; }
   .how-step h4 { font-size: 18px; }
   .how-step p { font-size: 13px; }
