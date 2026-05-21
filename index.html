@@ -142,8 +142,8 @@ main.chat-main { flex: 1; max-width: 900px; width: 100%; margin: 0 auto; padding
 /* ============ FOOTER (matches homepage) ============ */
 footer { margin-top: auto; padding: 80px 0 36px; background: var(--ink); color: var(--bg); border-top: 4px solid var(--accent); }
 .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 56px; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter) 48px; }
-.footer-tagline { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); font-weight: 600; letter-spacing: -0.022em; line-height: 1.1; max-width: 600px; color: var(--bg); margin-bottom: 22px; }
-.footer-tagline em { color: #7fc9a0; font-style: italic; font-weight: 500; }
+.footer-inner .footer-tagline { font-family: var(--font-serif); font-size: clamp(28px, 3.5vw, 44px); font-weight: 600; letter-spacing: -0.022em; line-height: 1.1; max-width: 600px; color: var(--bg); margin-bottom: 22px; }
+.footer-inner .footer-tagline em { color: #7fc9a0; font-style: italic; font-weight: 500; }
 .footer-inner h4 { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; color: #8aa295; font-weight: 500; }
 .footer-inner p { font-size: 14px; line-height: 1.65; color: rgba(247, 245, 240, 0.75); max-width: 540px; }
 .footer-inner ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -354,13 +354,12 @@ body.embed main.chat-main { padding: 16px; }
   <div class="footer-inner">
     <div>
       <p class="footer-tagline">Let's <em>talk</em> about the research.</p>
-      <p>Feedback on GeoChat, or interested in AI assistants grounded in domain-specific data? Happy to discuss retrieval, prompting, Vercel serverless patterns, or the chatbot architecture. Currently open to roles in Python, web development, data engineering, and AI integration.</p>
     </div>
     <div>
       <h4>Navigate</h4>
       <ul>
         <li><a href="https://vaibhavj97.vercel.app">Home</a></li>
-        <li><a href="https://vaibhavj97-thesis.vercel.app">Master Thesis Project</a></li>
+        <li><a href="https://vaibhavj97-thesis.vercel.app">Master Thesis</a></li>
         <li><a href="https://vaibhavj97-geochat.vercel.app">GeoChat</a></li>
         <li><a href="https://vaibhavj97-bhe.vercel.app">BHE Recommender</a></li>
       </ul>
@@ -368,15 +367,16 @@ body.embed main.chat-main { padding: 16px; }
     <div>
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:vaibhavjaiswal1234@gmail.com">vaibhavjaiswal1234@gmail.com</a></li>
-        <li><a href="https://github.com/VaibhavJ97" target="_blank">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/vaibhavgeo/" target="_blank">LinkedIn</a></li>
+        <li><a href="mailto:vaibhavjaiswal1234@gmail.com">Email</a></li>
+        <li><a href="https://github.com/VaibhavJ97" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/vaibhavgeo/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://calendly.com/vaibhavjaiswal1234/30min" target="_blank" rel="noopener">Book a 30-min call</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 Vaibhav Jaiswal</span>
-    <span>Built with care · Powered by Gemini</span>
+    <div>Vaibhav Jaiswal · Karlsruhe, DE</div>
+    <div>© 2026 · Built with care · Vercel</div>
   </div>
 </footer>
 
